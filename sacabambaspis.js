@@ -29,7 +29,7 @@ function sacabambaspis(inputSize) {
 		size = defaultSize;
 	}
 	let half = size / 2;
-	let scale = size / defaultSize;
+	let scale = size / defaultSize * (randomizer() + 2) / 2;
 
 	// SVG要素を作成します
 	let svg = document.createElementNS(svgns, "svg");
@@ -37,9 +37,9 @@ function sacabambaspis(inputSize) {
 	svg.setAttributeNS(null, "height", size);
 
 	// 上下の境目オフセット
-	let offsetY = (randomizer() * 20 + 10) * scale;
+	let offsetY = (randomizer() * 50 - 10) * scale;
 	// 顔中心のオフセット
-	let offsetX = (randomizer() * 10 + 20) * scale;
+	let offsetX = (randomizer() * 10 + 10) * scale;
 	// 眼の離れ具合
 	let eyeDistance = (randomizer() * 15 + 55) * scale;
 	// 眼の高さ
