@@ -1,8 +1,26 @@
 // SVGの名前空間を定義します
 const svgns = "http://www.w3.org/2000/svg";
 
-// あなただけのサカバンバスピスを描きます
+let randomizer = null;
+
+// 名前に基づいたサカバンバスピスのSVGを返します
+function sacabambaspisWithName(inputName, inputSize) {
+	let name;
+	if (inputName.length > 0) {
+		name = inputName;
+	} else {
+		name = 'oqzl';
+	}
+	randomizer = SeededRandom(hashCode(name));
+	return sacabambaspis(inputSize);
+}
+
+// ランダムなサカバンバスピスを描きます
 function sacabambaspis(inputSize) {
+	if (randomizer == null) {
+		randomizer = SeededRandom();
+	}
+
 	let defaultSize = 300;
 	let size;
 	if (Number.isInteger(inputSize) && inputSize > 0) {
@@ -19,20 +37,20 @@ function sacabambaspis(inputSize) {
 	svg.setAttributeNS(null, "height", size);
 
 	// 上下の境目オフセット
-	let offsetY = (Math.random() * 20 + 10) * scale;
+	let offsetY = (randomizer() * 20 + 10) * scale;
 	// 顔中心のオフセット
-	let offsetX = (Math.random() * 10 + 20) * scale;
+	let offsetX = (randomizer() * 10 + 20) * scale;
 	// 眼の離れ具合
-	let eyeDistance = (Math.random() * 15 + 55) * scale;
+	let eyeDistance = (randomizer() * 15 + 55) * scale;
 	// 眼の高さ
-	let eyeHeight = (Math.random() * 10 + 10) * scale;
+	let eyeHeight = (randomizer() * 10 + 10) * scale;
 	// 目サイズ
 	let eyeSize = (12.5) * scale;
-	let pupilSize = eyeSize * (Math.random() * 2 + 6) / 10;
+	let pupilSize = eyeSize * (randomizer() * 2 + 6) / 10;
 	// 口の横幅
-	let mouthWidth = eyeDistance - (Math.random() * 15 + 10) * scale;
+	let mouthWidth = eyeDistance - (randomizer() * 15 + 10) * scale;
 	// 口の開き具合
-	let mouthOpen = (Math.random() * 30 + 10) * scale;
+	let mouthOpen = (randomizer() * 30 + 10) * scale;
 
 	// 下半分≒背景を描きます
 	let bg = document.createElementNS(svgns, "rect");
@@ -74,7 +92,7 @@ function sacabambaspis(inputSize) {
 		let letters = '9ABC';
 		let color = '#';
 		for (let i = 0; i < 6; i++) {
-			color += letters[Math.floor(Math.random() * letters.length)];
+			color += letters[Math.floor(randomizer() * letters.length)];
 		}
 		return color;
 	}
@@ -95,6 +113,42 @@ function sacabambaspis(inputSize) {
 		pupil.setAttributeNS(null, "fill", "black");
 		svg.appendChild(pupil);
 	}
+
 }
 
-export { sacabambaspis };
+function SeededRandom(seed) {
+	console.log('create randomizer with seed:' + seed);
+	const a = 16807;             // 乗数
+	const m = 2147483647;        // 2^31 - 1
+	const q = Math.floor(m / a); // 127773
+	const r = m % a;             // 2836
+	let hi, lo;
+
+	if (!seed) {
+		seed = Math.floor(Math.random() * (m - 1));
+	}
+
+	seed %= m;
+	if (seed <= 0) seed += m - 1;
+
+	return function() {
+		hi = seed / q;
+		lo = seed % q;
+		seed = a * lo - r * hi;
+		if (seed <= 0) seed += m;
+		return (seed - 1) / (m - 1);
+	};
+}
+
+function hashCode(str) {
+	let hash = 0;
+	for (let i = 0; i < str.length; i++) {
+		let char = str.charCodeAt(i);
+		hash = ((hash << 5) - hash) + char;
+		hash |= 0;
+	}
+	console.log('rreturn hash:' + hash);
+	return hash;
+}
+
+export { sacabambaspis, sacabambaspisWithName };

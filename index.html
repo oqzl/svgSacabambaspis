@@ -1,7 +1,7 @@
 <html>
 <head>
 	<script type="module">
-		import { sacabambaspis } from './sacabambaspis.js';
+		import { sacabambaspis, sacabambaspisWithName } from './sacabambaspis.js';
 		
 		// デフォルトサイズ（300px）のSVGを取得します
 		let svg = sacabambaspis();
@@ -13,18 +13,19 @@
 		// SVGをドキュメントに追加します
 		document.querySelector('#small').appendChild(svg100);
 
-		// サイズ1000pxのSVGを取得します
-		let svg1000 = sacabambaspis(1000);
+		// 名前付き
+		let svgOqzl = sacabambaspisWithName('oqzl');
 		// SVGをドキュメントに追加します
-		document.querySelector('#large').appendChild(svg1000);
-	</script>
+		document.querySelector('#oqzl').appendChild(svgOqzl);
+
+</script>
 </head>
 <body>
-	<h1>デフォルト</h1>
+	<h1>default: sacabambaspis()</h1>
 	<div id="default"></div>
-	<h1>小さめ</h1>
+	<h1>sacabambaspis(100)</h1>
 	<div id="small"></div>
-	<h1>大きめ</h1>
-	<div id="large"></div>
+	<h1>sacabambaspisWithName('oqzl')</h1>
+	<div id="oqzl"></div>
 </body>
 </html>
