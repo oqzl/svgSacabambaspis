@@ -6,14 +6,25 @@
 		// デフォルトサイズ（300px）のSVGを取得します
 		let svg = sacabambaspis();
 		// SVGをドキュメントに追加します
-		document.body.appendChild(svg);
+		document.querySelector('#default').appendChild(svg);
+
+		// サイズ100pxのSVGを取得します
+		let svg100 = sacabambaspis(100);
+		// SVGをドキュメントに追加します
+		document.querySelector('#small').appendChild(svg100);
 
 		// サイズ1000pxのSVGを取得します
 		let svg1000 = sacabambaspis(1000);
 		// SVGをドキュメントに追加します
-		document.body.appendChild(svg1000);
+		document.querySelector('#large').appendChild(svg1000);
 	</script>
 </head>
 <body>
+	<h1>デフォルト</h1>
+	<div id="default"></div>
+	<h1>小さめ</h1>
+	<div id="small"></div>
+	<h1>大きめ</h1>
+	<div id="large"></div>
 </body>
 </html>
