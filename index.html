@@ -3,10 +3,15 @@
 	<script type="module">
 		import { sacabambaspis } from './sacabambaspis.js';
 		
-		// SVGを取得します
-		let svg = sacabambaspis(1000);
+		// デフォルトサイズ（300px）のSVGを取得します
+		let svg = sacabambaspis();
 		// SVGをドキュメントに追加します
 		document.body.appendChild(svg);
+
+		// サイズ1000pxのSVGを取得します
+		let svg1000 = sacabambaspis(1000);
+		// SVGをドキュメントに追加します
+		document.body.appendChild(svg1000);
 	</script>
 </head>
 <body>
