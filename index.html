@@ -18,6 +18,17 @@
 		// SVGをドキュメントに追加します
 		document.querySelector('#oqzl').appendChild(svgOqzl);
 
+		// SVG要素をXML文字列にシリアライズします。
+		let serializer = new XMLSerializer();
+		let svgStr = serializer.serializeToString(svgOqzl);
+		// シリアライズされたSVG文字列をデータURIに変換します。
+		let dataUri = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgStr)));
+		// 新しい<img>要素を作成し、そのsrc属性にデータURIを設定します。
+		let img = new Image();
+		img.src = dataUri;
+		// <img>要素をdocument.bodyに追加します。
+		document.querySelector('#oqzlImg').appendChild(img);		
+
 </script>
 </head>
 <body>
@@ -27,5 +38,7 @@
 	<div id="small"></div>
 	<h1>sacabambaspisWithName('oqzl')</h1>
 	<div id="oqzl"></div>
+	<h2>↑と同じものをimgタグ + data URIで</h2>
+	<div id="oqzlImg"></div>
 </body>
 </html>
